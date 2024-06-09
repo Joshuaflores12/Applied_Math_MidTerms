@@ -23,6 +23,8 @@ public class CannonController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // for every point instantiate base on the point and firepoint pos
+
         points = new GameObject[numofPoints];
         for (int i = 0; i < numofPoints; i++) 
         {
@@ -41,17 +43,19 @@ public class CannonController : MonoBehaviour
 
         Vector2 PointPosition(float p)
         {
-            Vector2 position = ((Vector2)firePoint.position + direction.normalized * fireForce * p) + 0.5f * Physics2D.gravity * (p * p);
+            Vector2 position = ((Vector2)firePoint.position + direction.normalized * fireForce * p) + 0.5f * Physics2D.gravity * (p * p); // Returns of the position of the points 
             return position;
         }
         for (int i = 0; i < numofPoints; i++)
         {
-            points[i].transform.position = PointPosition(i * spaceBetweenPoints);
+            points[i].transform.position = PointPosition(i * spaceBetweenPoints); //Adds interval between the points
         }
     }
 
     public void CannonRotate()
     {
+        // cannon rotation using mousepos input
+
         CannonPosition = transform.position;
         MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = MousePosition - CannonPosition;
